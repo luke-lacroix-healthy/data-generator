@@ -1,16 +1,31 @@
-import { DataSetDefinition } from '../types';
+import { DataSetDefinition, GenerateDataSetOptions } from '../types';
 import { processValue } from './processValue';
 
-export async function generateDataSet<T>({ value }: DataSetDefinition<T>, count = 1): Promise<T[]> {
+/**
+ *
+ * @param definition the definition for the data set
+ * @param options options for data set generation
+ * @returns
+ */
+export async function generateDataSet<T>(
+  { value }: DataSetDefinition<T>,
+  { filter = () => true, count = 1 }: GenerateDataSetOptions<T> = {},
+): Promise<T[]> {
   const result = [] as T[];
 
   for (let i = 0; i < count; i++) {
     const generatedValue = await processValue(value, i);
 
     if (generatedValue.permute) {
-      result.push(...generatedValue.value);
+      generatedValue.value.forEach((val) => {
+        if (filter(val)) {
+          result.push(val);
+        }
+      });
     } else {
-      result.push(generatedValue.value);
+      if (filter(generatedValue.value)) {
+        result.push(generatedValue.value);
+      }
     }
   }
 

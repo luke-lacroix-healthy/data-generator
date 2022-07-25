@@ -45,5 +45,4 @@ The `dataSet` variable will now contain all permutations of the data defined by 
 
 ## TODO
 
-- add the ability to reject some permutations from the result set
 - add more tests
