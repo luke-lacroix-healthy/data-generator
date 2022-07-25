@@ -1,0 +1,49 @@
+{
+  "name": "ts-packages",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Healty.io Typescript Packages",
+  "license": "ISC",
+  "main": "",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "organize-dep": "npx sort-package-json package.json packages/*/package.json",
+    "prepare": "husky install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add --force"
+    ],
+    "*.{md,json}": [
+      "prettier --write",
+      "git add --force"
+    ],
+    "./package.json": [
+      "npm run organize-dep"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@commitlint/types": "^17.0.0",
+    "@tsconfig/node16": "^1.0.3",
+    "depcheck": "^1.4.3",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "prettier-eslint": "^15.0.1",
+    "sort-package-json": "^1.57.0",
+    "ts-jest": "^28.0.7"
+  }
+}
